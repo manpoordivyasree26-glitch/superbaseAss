@@ -1,1 +1,93 @@
-hiii
+-------------------
+STEP 1: CREATE TABLE
+-------------------
+CREATE TABLE students(
+  id SERIAL PRIMARY KEY,
+  name TEXT,
+  email TEXT,
+  age INTEGER,
+  course TEXT,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+OUTPUT:
+Table created successfully
+
+---------------------
+STEP 2: INSERT DATA
+---------------------
+INSERT INTO students (name,email,age,course) VALUES 
+('Divyasree','divyasree.netha@gmail.com',21,'Data Science'),
+('Pinky','pinky.sharma@gmail.com',19,'web Development'),
+('rakesh','rakes.gupta@gmail.com',23,'cyber Security'),
+('Neha Gupta', 'neha.gupta@gmail.com', 20, 'Data Analytics'),
+('Vikram Kapoor', 'vikram.kapoor@gamil.com', 22, 'Cloud Computing');
+
+OUTPUT:
+5 Rows inserted
+
+--------------------
+STEP 3:READ DATA
+--------------------
+-- Fetch all students
+SELECT * FROM students;
+
+Output:
+Rows returned
+
+-------------------
+students olderthan >20
+
+SELECT * FROM students where age>20;
+
+OUTPUT:
+Rows returned
+
+-------------------
+only email and name
+
+SELECT * name,email FROM students;
+
+OUTPUT:
+Rows returned
+
+-------------------
+specific course
+SELECT * FROM students WHERE course ='Data science';
+
+OUTPUT:
+Rows returned
+
+--------------------
+STEP 4:UPDATE DATA
+--------------------
+
+--age updated
+UPDATE students set age=26 where id=5
+
+OUTPUT:
+UPDATE 1
+-----------------
+updating cousre
+UPDATE students SET course ='Full stack development' WHERE course='Data Science';
+
+OUTPUT:
+UPDATE 1
+
+------------------
+STEP 5:DELETE DATA
+------------------
+DELETE  FROM student WHERE id=3;
+
+OUTPUT:
+DELETE 1
+
+DELETE FROM students WHERE age<18;
+
+OUTPUT:
+DELETE 1
+
+
+SELECT * FROM students ORDER BY id;
+
+
