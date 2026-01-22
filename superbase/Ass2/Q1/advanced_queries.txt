@@ -1,0 +1,105 @@
+----------------------------------
+TABLE CREATION
+----------------------------------
+CREATE TABLE studentss (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    email TEXT,
+    age INTEGER,
+    course TEXT,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+Output:
+Table created
+
+
+----------------------------------
+DATA INSERTION
+----------------------------------
+INSERT INTO studentss (name, email, age, course)
+VALUES
+('Divyasree', 'divyasree@gmail.com', 25, 'Data Science'),
+('Pinky', 'pinky@gmail.com', 19, 'Web Development'),
+('Rakesh', 'rakesh@gmail.com', 25, 'Full Stack Development'),
+('Neha Gupta', 'neha.gupta@gmail.com', 20, 'Data Analytics'),
+('Vikram Kapoor', 'vikram.kapoor@gmail.com', 22, 'Data Science'),
+('Ankit Sharma', 'ankit.sharma@gmail.com', 23, 'Data Science'),
+('Suman Rao', 'suman.rao@gmail.com', 21, 'Data Analytics'),
+('Karthik Reddy', 'karthik.reddy@gmail.com', 24, 'Full Stack Development'),
+('Ayesha Khan', 'ayesha.khan@gmail.com', 22, 'Web Development'),
+('Rohit Verma', 'rohit.verma@gmail.com', 26, 'Cloud Computing'),
+('Meena Iyer', 'meena.iyer@gmail.com', 20, 'Data Science'),
+('Sanjay Patel', 'sanjay.patel@gmail.com', 27, 'Cyber Security'),
+('Pooja Nair', 'pooja.nair@gmail.com', 21, 'Data Analytics'),
+('Naveen Kumar', 'naveen.kumar@gmail.com', 24, 'Full Stack Development'),
+('Sneha Joshi', 'sneha.joshi@gmail.com', 22, 'Web Development');
+
+Output:
+15 rows inserted
+
+
+----------------------------------
+AGGREGATE QUERIES
+----------------------------------
+
+SELECT COUNT(*) FROM studentss;
+Output:
+15
+
+SELECT AVG(age) FROM studentss;
+Output:
+Average returned
+
+SELECT MIN(age) FROM studentss;
+Output:
+19
+
+SELECT MAX(age) FROM studentss;
+Output:
+27
+
+SELECT course, COUNT(*) FROM studentss GROUP BY course;
+Output:
+Rows returned
+
+SELECT COUNT(*) FROM studentss WHERE age > 20;
+Output:
+Count returned
+
+
+----------------------------------
+GROUPING & FILTERING
+----------------------------------
+
+SELECT course, COUNT(*) FROM studentss GROUP BY course;
+Output:
+Rows returned
+
+SELECT course, COUNT(*) FROM studentss GROUP BY course HAVING COUNT(*) > 1;
+Output:
+Rows returned
+
+SELECT course, COUNT(*) AS student_count
+FROM studentss
+GROUP BY course
+ORDER BY student_count DESC;
+Output:
+Rows returned
+
+
+----------------------------------
+ORDERING & LIMITING
+----------------------------------
+
+SELECT * FROM studentss ORDER BY created_at DESC LIMIT 3;
+Output:
+3 rows returned
+
+SELECT * FROM studentss ORDER BY age DESC LIMIT 5;
+Output:
+5 rows returned
+
+SELECT * FROM studentss WHERE course = 'Data Science' ORDER BY age DESC;
+Output:
+Rows returned
