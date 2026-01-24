@@ -1,0 +1,109 @@
+SQL CRUD Operations on Relationships
+===================================
+
+STEP 1: CREATE TABLES
+--------------------
+
+CREATE TABLE users(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE orders(
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  amount INTEGER NOT NULL,
+  status TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_user
+  FOREIGN KEY (user_id)
+  REFERENCES users(id)
+  ON DELETE RESTRICT
+);
+
+OUTPUT:
+Tables created successfully
+
+
+STEP 2: INSERT DATA
+------------------
+
+INSERT INTO users(name, email) VALUES
+('Divya','divya@gmail.com'),
+('Deep','deepthi@gmail.com'),
+('Alice','alice@gmail.com'),
+('Bob','bob@gmail.com'),
+('Charlie','charlie@gmail.com'),
+('Diana','diana@gmail.com'),
+('Evan','evan@gmail.com');
+
+INSERT INTO orders(user_id, amount, status) VALUES
+(1, 500, 'placed'),
+(1, 1200, 'shipped'),
+(2, 800, 'placed'),
+(2, 300, 'cancelled'),
+(3, 1500, 'delivered'),
+(3, 700, 'placed'),
+(3, 400, 'placed'),
+(4, 950, 'shipped'),
+(5, 1100, 'placed');
+
+OUTPUT:
+Insert successful
+
+
+STEP 3: READ DATA
+----------------
+
+SELECT * FROM users;
+SELECT * FROM orders;
+
+SELECT * FROM orders WHERE user_id = 3;
+
+SELECT u.id, u.name, COUNT(o.id) AS total_orders
+FROM users u
+JOIN orders o ON u.id = o.user_id
+GROUP BY u.id, u.name
+HAVING COUNT(o.id) > 1;
+
+SELECT u.id, u.name, SUM(o.amount) AS total_amount
+FROM users u
+JOIN orders o ON u.id = o.user_id
+GROUP BY u.id, u.name;
+
+OUTPUT:
+Queries executed successfully
+
+
+STEP 4: UPDATE DATA
+------------------
+
+UPDATE users SET email='sree@gmail.com' WHERE id=1;
+UPDATE orders SET status='refunded' WHERE user_id=2;
+UPDATE orders SET amount=200 WHERE id=5;
+
+OUTPUT:
+Rows updated successfully
+
+
+STEP 5: DELETE DATA
+------------------
+
+DELETE FROM orders WHERE id=9;
+DELETE FROM orders WHERE user_id=1;
+
+-- Attempt to delete a user with existing orders
+DELETE FROM users WHERE id=3;
+
+OUTPUT:
+ERROR: violates foreign key constraint
+
+
+STEP 6: CONCEPTUAL ANSWER
+------------------------
+
+-- Orders should not be stored in the users table because
+-- one user can have multiple orders.
+-- This avoids data duplication and follows database normalization.
